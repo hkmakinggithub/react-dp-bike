@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Expenses from './pages/Expenses';
@@ -44,7 +44,7 @@ function App() {
 });
   return (
     <QueryClientProvider client={queryClient}>
-
+<BrowserRouter>
     <Router>
       <ToastContainer position="top-right" autoClose={3000} theme="colored" />
       
@@ -77,6 +77,7 @@ function App() {
               
       </Routes> 
     </Router>
+</BrowserRouter>
     </QueryClientProvider>
   );
 }
