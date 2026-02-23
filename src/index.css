@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+/* --- PRINT STYLES --- */
+@media print {
+  /* Hide the entire React App UI */
+  body * {
+    visibility: hidden;
+  }
+  /* Show ONLY the invoice section */
+  #printable-bill, #printable-bill * {
+    visibility: visible;
+  }
+  #printable-bill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border: none !important;
+  }
+  /* Remove browser-added headers/footers */
+  @page {
+    margin: 0.5cm;
+  }
+}
