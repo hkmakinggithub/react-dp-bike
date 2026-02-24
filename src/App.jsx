@@ -47,7 +47,11 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* 🛠️ FIX 1: Removed the extra <BrowserRouter> tag. Just use <Router> */}
+<<<<<<< HEAD
       <Router >
+=======
+      <Router>
+>>>>>>> d957f4ab82dfda8e92693628ce4e027cc315d7f3
         <ToastContainer position="top-right" autoClose={3000} theme="colored" />
         
         <Routes>
