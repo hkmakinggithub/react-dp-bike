@@ -1,12 +1,13 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Expenses from './pages/Expenses';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 // 1. Components
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import Expenses from './pages/Expenses';
 
 // 2. Sales
 import NewSale from './pages/1.sales/NewSale';
@@ -23,7 +24,7 @@ import JobClose from './pages/3.jobcard/2.JobClose';
 import ServiceNew from './pages/4.service/1.ServiceNew';
 import ServiceBill from './pages/4.service/2.ServiceBill';
 
-// 6. Reports
+// 6. Reports & Others
 import Reports from './pages/5..reports/Reports';
 import SalesHistory from './pages/SalesHistory';
 import WarrantyTracker from './pages/2.supplier/WarrantyTracker';
@@ -31,53 +32,52 @@ import CustomerMaster from './pages/3.jobcard/CustomerMaster';
 import CreateStaff from './components/CreateStaff';
 import WalkInInquiry from './pages/WalkInInquiry';
 import ViewInquiries from './pages/ViewInquiries';
-import OpenJobCard from './pages/OpenJobCard';
 
-function App() {
-  const queryClient = new QueryClient({
+// 🛠️ FIX 2: Move QueryClient OUTSIDE the component so it doesn't reset on every render
+const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: true, // Auto-refreshes data when user clicks back into the tab!
-      staleTime: 1000 * 60 * 1, // Keep data fresh for 1 minute before refetching
+      refetchOnWindowFocus: true, 
+      staleTime: 1000 * 60 * 1, 
     },
   },
 });
+
+function App() {
   return (
     <QueryClientProvider client={queryClient}>
-<BrowserRouter>
-    <Router>
-      <ToastContainer position="top-right" autoClose={3000} theme="colored" />
-      
-      <Routes>
-        {/* Auth & Dashboard */}
-        <Route path="/" element={<Login />} />
-   <Route path="/dashboard" element={<Dashboard /> } />
-
-        {/* Operations */}
-        <Route path="/master/client" element={<NewSale />} />
+      {/* 🛠️ FIX 1: Removed the extra <BrowserRouter> tag. Just use <Router> */}
+      <Router basename="/react-dp-bike">
+        <ToastContainer position="top-right" autoClose={3000} theme="colored" />
         
-        <Route path="/master/supplier" element={<SupplierOut />} />
-        <Route path="/master/supplier2" element={<SupplierIn />} />
+        <Routes>
+          {/* Auth & Dashboard */}
+          <Route path="/" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
 
-        <Route path="/master/customer2" element={<JobOpen />} />
-        <Route path="/master/customer" element={<JobClose />} />
+          {/* Operations */}
+          <Route path="/master/client" element={<NewSale />} />
+          
+          <Route path="/master/supplier" element={<SupplierOut />} />
+          <Route path="/master/supplier2" element={<SupplierIn />} />
 
-        <Route path="/master/service2" element={<ServiceNew />} />
-        <Route path="/master/service" element={<ServiceBill />} />
+          <Route path="/master/customer2" element={<JobOpen />} />
+          <Route path="/master/customer" element={<JobClose />} />
 
-        <Route path="/master/Reports" element={<Reports />} />
-        <Route path="/expenses" element={<Expenses />} />
-        <Route path="/list" element={<SalesHistory />} />
+          <Route path="/master/service2" element={<ServiceNew />} />
+          <Route path="/master/service" element={<ServiceBill />} />
 
-        <Route path="/warranty" element={<WarrantyTracker />} />
-           <Route path="/warranty2" element={<CustomerMaster />} />
-               <Route path="/staff" element={<CreateStaff />} />
-               <Route path="/inquiries" element={<WalkInInquiry />} />
-               <Route path="/view-inquiries" element={<ViewInquiries />} />
-              
-      </Routes> 
-    </Router>
-</BrowserRouter>
+          <Route path="/master/Reports" element={<Reports />} />
+          <Route path="/expenses" element={<Expenses />} />
+          <Route path="/list" element={<SalesHistory />} />
+
+          <Route path="/warranty" element={<WarrantyTracker />} />
+          <Route path="/warranty2" element={<CustomerMaster />} />
+          <Route path="/staff" element={<CreateStaff />} />
+          <Route path="/inquiries" element={<WalkInInquiry />} />
+          <Route path="/view-inquiries" element={<ViewInquiries />} />
+        </Routes> 
+      </Router>
     </QueryClientProvider>
   );
 }

@@ -48,22 +48,22 @@ const SupplierOutward = () => {
       const headers = { 'branch-id': activeBranch }
 
       // Get Outward No
-      const numRes = await fetch('http://localhost:5000/api/outward-no', { headers })
+      const numRes = await fetch(`${process.env.BACK}/api/outward-no`, { headers })
       const numData = await numRes.json()
       setOutwardNo(numData.outwardNo)
 
       // Get Suppliers
-      const supRes = await fetch('http://localhost:5000/api/suppliers', { headers })
+      const supRes = await fetch(`${process.env.BACK}/api/suppliers`, { headers })
       const supData = await supRes.json()
       setSuppliers(Array.isArray(supData) ? supData : [])
 
       // Get Parts
-      const partRes = await fetch('http://localhost:5000/api/parts', { headers })
+      const partRes = await fetch(`${process.env.BACK}/api/parts`, { headers })
       const partData = await partRes.json()
       setParts(Array.isArray(partData) ? partData : [])
 
       // 🚨 FIXED: Now it actually fetches the pending jobs!
-      const jobsRes = await fetch('http://localhost:5000/api/pending-customer-parts', { headers });
+      const jobsRes = await fetch(`${process.env.BACK}/api/pending-customer-parts`, { headers });
       const jobsData = await jobsRes.json();
       setCustomerJobs(Array.isArray(jobsData) ? jobsData : []);
 
@@ -97,7 +97,7 @@ const SupplierOutward = () => {
   const fetchHistory = async () => {
     setLoadingHistory(true)
     try {
-      const res = await fetch('http://localhost:5000/api/supplier-outward/list', {
+      const res = await fetch(`${process.env.BACK}/api/supplier-outward/list`, {
         headers: { 'branch-id': activeBranch }
       })
       const data = await res.json()
@@ -128,7 +128,7 @@ const SupplierOutward = () => {
     setIsSaving(true)
 
     try {
-      const res = await fetch('http://localhost:5000/api/save-outward', {
+      const res = await fetch(`${process.env.BACK}/api/save-outward`, {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
@@ -163,7 +163,7 @@ const SupplierOutward = () => {
   const handleQuickAdd = async (type) => {
     if (!newItemName) return toast.warn('ENTER NAME')
     const upperName = newItemName.toUpperCase()
-    const url = type === 'SUPPLIER' ? 'http://localhost:5000/api/add-supplier' : 'http://localhost:5000/api/add-part'
+    const url = type === 'SUPPLIER' ? `${process.env.BACK}/api/add-supplier` : `${process.env.BACK}/api/add-part`
 
     try {
       const res = await fetch(url, {

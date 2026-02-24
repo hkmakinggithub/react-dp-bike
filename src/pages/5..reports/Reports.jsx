@@ -31,7 +31,7 @@ const MasterReports = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/reports/${endpoint}`, {
+      const res = await fetch(`${process.env.BACK}/api/reports/${endpoint}`, {
         headers: { 'branch-id': selectedBranch }
       });
       const result = await res.json();

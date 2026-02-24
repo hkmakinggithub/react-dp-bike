@@ -34,7 +34,7 @@ const WalkInInquiry = () => {
     const token = localStorage.getItem('token');
 
     try {
-      const res = await fetch('http://localhost:5000/api/inquiries', {
+      const res = await fetch(`${process.env.BACK}/api/inquiries`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

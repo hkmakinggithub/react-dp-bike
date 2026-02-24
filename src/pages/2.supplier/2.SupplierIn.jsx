@@ -35,7 +35,7 @@ const SupplierInward = () => {
   const fetchPending = async () => {
     try {
       // 🚨 FIXED URL to match apiRoutes.js
-      const res = await fetch('http://localhost:5000/api/pending-supplier-outwards', {
+      const res = await fetch(`${process.env.BACK}/api/pending-supplier-outwards`, {
         headers: { 'branch-id': activeBranch }
       });
       const data = await res.json();
@@ -51,7 +51,7 @@ const SupplierInward = () => {
     setLoadingHistory(true);
     try {
       // 🚨 FIXED URL: Used warranty-master as it has the joined inward/outward data
-      const res = await fetch('http://localhost:5000/api/warranty-master', {
+      const res = await fetch(`${process.env.BACK}/api/warranty-master`, {
         headers: { 'branch-id': activeBranch }
       });
       const data = await res.json();
@@ -100,7 +100,7 @@ const SupplierInward = () => {
       };
 
       // 🚨 FIXED URL to match apiRoutes.js
-      const res = await fetch('http://localhost:5000/api/save-supplier-inward', {
+      const res = await fetch(`${process.env.BACK}/api/save-supplier-inward`, {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',

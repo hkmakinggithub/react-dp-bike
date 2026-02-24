@@ -45,7 +45,7 @@ const ClientMaster = () => {
       const token = localStorage.getItem('token'); 
       if (!token) return; // 👈 SAFETY CHECK: Stop if no token
 
-      const res = await fetch('http://localhost:5000/api/sales/list', {
+      const res = await fetch(`${process.env.BACK}/api/sales/list`, {
         headers: { 
           'branch-id': activeBranch,
           'Authorization': `Bearer ${token}` 
@@ -98,7 +98,7 @@ const ClientMaster = () => {
       const token = localStorage.getItem('token');
       if (!token) return; // 👈 SAFETY CHECK: Stop if no token
 
-      const res = await fetch('http://localhost:5000/api/models', {
+      const res = await fetch(`${process.env.BACK}/api/models`, {
         headers: { 
           'branch-id': activeBranch,
           'Authorization': `Bearer ${token}` 
@@ -115,7 +115,7 @@ const ClientMaster = () => {
       const token = localStorage.getItem('token');
       if (!token) return; // 👈 SAFETY CHECK: Stop if no token
 
-      const res = await fetch('http://localhost:5000/api/customers-list', {
+      const res = await fetch(`${process.env.BACK}/api/customers-list`, {
         headers: { 
           'branch-id': activeBranch,
           'Authorization': `Bearer ${token}` 
@@ -154,7 +154,7 @@ const ClientMaster = () => {
     if (!newModelName) return toast.warn("Enter model name");
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/api/add-model', {
+      const res = await fetch(`${process.env.BACK}/api/add-model`, {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
@@ -179,7 +179,7 @@ const ClientMaster = () => {
     }
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/api/add-customer', {
+      const res = await fetch(`${process.env.BACK}/api/add-customer`, {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
@@ -218,7 +218,7 @@ const ClientMaster = () => {
     try {
       const token = localStorage.getItem('token'); 
 
-      const res = await fetch('http://localhost:5000/api/save-sale', {
+      const res = await fetch(`${process.env.BACK}/api/save-sale`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json', 

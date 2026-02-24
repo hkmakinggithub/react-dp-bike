@@ -30,7 +30,7 @@ const Login = () => {
 const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/login', creds);
+      const response = await axios.post(`${process.env.BACK}/api/login`, creds);
       
       // 1. Save the basic info
       localStorage.setItem('token', response.data.token); 
@@ -54,7 +54,7 @@ const handleLogin = async (e) => {
     
     setIsLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/forgot-password', { email: creds.email });
+      const res = await axios.post(`${process.env.BACK}/api/forgot-password`, { email: creds.email });
       toast.success(res.data.message || "OTP Sent to your email!");
       setView('reset'); // Move to step 3
     } catch (error) {
@@ -71,7 +71,7 @@ const handleLogin = async (e) => {
 
     setIsLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/reset-password', { 
+      const res = await axios.post(`${process.env.BACK}/api/reset-password`, { 
         email: creds.email, 
         otp: otpData.otp, 
         newPassword: otpData.newPassword 
