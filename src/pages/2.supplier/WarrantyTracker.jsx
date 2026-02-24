@@ -20,7 +20,7 @@ const WarrantyReport = () => {
       setLoading(true);
       setError(null);
       
-      const res = await fetch(`${process.env.BACK}/api/warranty-master`, {
+      const res = await fetch(`${import.meta.env.VITE_BACK}/api/warranty-master`, {
         method: 'GET',
         headers: { 
           'branch-id': activeBranch,

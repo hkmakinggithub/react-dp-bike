@@ -17,7 +17,7 @@ const ViewInquiries = () => {
       const token = localStorage.getItem('token');
       const branchId = localStorage.getItem('activeBranch') || '1';
 
-      const res = await fetch(`${process.env.BACK}/api/inquiries`, {
+      const res = await fetch(`${import.meta.env.VITE_BACK}/api/inquiries`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -47,7 +47,7 @@ const ViewInquiries = () => {
 const handleStatusChange = async (id, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`${process.env.BACK}/api/inquiries/${id}/status`, {
+      const res = await fetch(`${import.meta.env.VITE_BACK}/api/inquiries/${id}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

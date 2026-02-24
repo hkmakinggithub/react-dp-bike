@@ -40,11 +40,11 @@ const ServiceJobOut = () => {
         'Content-Type': 'application/json' 
       };
 
-      const numRes = await fetch(`${process.env.BACK}/api/service-out-no`, { headers });
+      const numRes = await fetch(`${import.meta.env.VITE_BACK}/api/service-out-no`, { headers });
       const numData = await numRes.json();
       setOutNo(numData.outNo);
 
-      const pendRes = await fetch(`${process.env.BACK}/api/pending-service-jobs`, { headers });
+      const pendRes = await fetch(`${import.meta.env.VITE_BACK}/api/pending-service-jobs`, { headers });
       const data = await pendRes.json();
       setPendingList(Array.isArray(data) ? data : []);
 
@@ -108,7 +108,7 @@ const ServiceJobOut = () => {
     };
 
     try {
-      const res = await fetch(`${process.env.BACK}/api/save-service-bill`, {
+      const res = await fetch(`${import.meta.env.VITE_BACK}/api/save-service-bill`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'branch-id': activeBranch },
         body: JSON.stringify(payload)

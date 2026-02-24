@@ -40,7 +40,7 @@
     const [newItemName, setNewItemName] = useState('');
 useEffect(() => {
   const getNextNo = async () => {
-    const res = await fetch(`${process.env.BACK}/api/cust-inward-no`, {
+    const res = await fetch(`${import.meta.env.VITE_BACK}/api/cust-inward-no`, {
       headers: { 'branch-id': activeBranch }
     });
     const data = await res.json();
@@ -56,20 +56,20 @@ useEffect(() => {
   const fetchData = async () => {
       try {
         // 1. Get Job Card Number
-        const numRes = await fetch(`${process.env.BACK}/api/cust-inward-no`, {
+        const numRes = await fetch(`${import.meta.env.VITE_BACK}/api/cust-inward-no`, {
           headers: { 'branch-id': activeBranch }
         });
         const numData = await numRes.json();
         setInwardNo(numData.inwardNo);
 
         // 2. Fetch Basic Customers (for people who didn't buy bikes here but came for service)
-        const custRes = await fetch(`${process.env.BACK}/api/customers-list`, {
+        const custRes = await fetch(`${import.meta.env.VITE_BACK}/api/customers-list`, {
           headers: { 'branch-id': activeBranch }
         });
         const basicCustomers = await custRes.json();
 
         // 3. 🚨 THE FIX: Fetch Sales Data (to get Model & Chassis No for existing buyers)
-        const salesRes = await fetch(`${process.env.BACK}/api/sales/list`, {
+        const salesRes = await fetch(`${import.meta.env.VITE_BACK}/api/sales/list`, {
           headers: { 'branch-id': activeBranch }
         });
         const salesCustomers = await salesRes.json();
@@ -82,7 +82,7 @@ useEffect(() => {
         setCustomers(combinedCustomers);
 
         // 4. Get Parts List
-        const partRes = await fetch(`${process.env.BACK}/api/parts`, {
+        const partRes = await fetch(`${import.meta.env.VITE_BACK}/api/parts`, {
           headers: { 'branch-id': activeBranch }
         });
         const partData = await partRes.json();
@@ -96,7 +96,7 @@ useEffect(() => {
     const fetchJobHistory = async () => {
       setLoadingJobs(true);
       try {
-        const res = await fetch(`${process.env.BACK}/api/service/list`, {
+        const res = await fetch(`${import.meta.env.VITE_BACK}/api/service/list`, {
           headers: { 'branch-id': activeBranch }
         });
         const data = await res.json();
@@ -149,7 +149,7 @@ const handleSave = async () => {
       totalAmount: 0
     };
 
-    const res = await fetch(`${process.env.BACK}/api/save-service-job`, {
+    const res = await fetch(`${import.meta.env.VITE_BACK}/api/save-service-job`, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
@@ -176,8 +176,8 @@ const handleSave = async () => {
       if (!newItemName) return toast.warn("ENTER NAME");
       const upperName = newItemName.toUpperCase();
       const url = type === 'CUSTOMER' 
-        ? `${process.env.BACK}/api/add-customer` 
-        : `${process.env.BACK}/api/add-part`;
+        ? `${import.meta.env.VITE_BACK}/api/add-customer` 
+        : `${import.meta.env.VITE_BACK}/api/add-part`;
 
       try {
         const res = await fetch(url, {

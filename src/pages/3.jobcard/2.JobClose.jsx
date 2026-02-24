@@ -25,7 +25,7 @@ const CustomerOutward = () => {
 
   const fetchPending = async () => {
     try {
-      const res = await fetch(`${process.env.BACK}/api/pending-jobcards`, {
+      const res = await fetch(`${import.meta.env.VITE_BACK}/api/pending-jobcards`, {
         method: 'GET',
         headers: { 
           'branch-id': activeBranch,
@@ -75,7 +75,7 @@ const CustomerOutward = () => {
         charges: formData.charges || 0
       };
 
-      const res = await fetch(`${process.env.BACK}/api/save-cust-outward`, {
+      const res = await fetch(`${import.meta.env.VITE_BACK}/api/save-cust-outward`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

@@ -47,7 +47,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* 🛠️ FIX 1: Removed the extra <BrowserRouter> tag. Just use <Router> */}
-      <Router basename="/react-dp-bike">
+      <Router >
         <ToastContainer position="top-right" autoClose={3000} theme="colored" />
         
         <Routes>

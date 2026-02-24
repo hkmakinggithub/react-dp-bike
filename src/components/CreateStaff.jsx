@@ -49,7 +49,7 @@ const CreateStaff = () => {
     try {
       const token = localStorage.getItem('token');
       
-      const res = await fetch(`${process.env.BACK}/api/create-staff`, {
+      const res = await fetch(`${import.meta.env.VITE_BACK}/api/create-staff`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

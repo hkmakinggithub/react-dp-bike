@@ -31,7 +31,7 @@ const Expenses = () => {
 
   const fetchExpenses = async () => {
     try {
-      const res = await fetch(`${process.env.BACK}/api/expenses/list`, {
+      const res = await fetch(`${import.meta.env.VITE_BACK}/api/expenses/list`, {
         headers: { 'branch-id': activeBranch }
       });
       const data = await res.json();
@@ -45,7 +45,7 @@ const Expenses = () => {
     setLoading(true);
 
     try {
-      const res = await fetch(`${process.env.BACK}/api/expenses/add`, {
+      const res = await fetch(`${import.meta.env.VITE_BACK}/api/expenses/add`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

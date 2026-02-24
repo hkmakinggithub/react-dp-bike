@@ -13,7 +13,7 @@ const ServiceJobList = () => {
   const fetchJobs = async () => { 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`${process.env.BACK}/api/service-jobs`, {
+      const res = await fetch(`${import.meta.env.VITE_BACK}/api/service-jobs`, {
         headers: { 'branch-id': activeBranch,Authorization: `Bearer ${token}` }
       });
       const data = await res.json();

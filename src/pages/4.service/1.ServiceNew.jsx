@@ -45,17 +45,17 @@ const ServiceJobIn = () => {
       };
 
       // 🚨 FIXED URL: changed from /service-job-no to /cust-inward-no
-      const jobRes = await fetch(`${process.env.BACK}/api/cust-inward-no`, { headers });
+      const jobRes = await fetch(`${import.meta.env.VITE_BACK}/api/cust-inward-no`, { headers });
       const jobData = await jobRes.json();
       setJobNo(jobData.inwardNo);
 
-      const custRes = await fetch(`${process.env.BACK}/api/customers-list`, { headers });
+      const custRes = await fetch(`${import.meta.env.VITE_BACK}/api/customers-list`, { headers });
       setCustomers(await custRes.json());
 
-      const modRes = await fetch(`${process.env.BACK}/api/models`, { headers });
+      const modRes = await fetch(`${import.meta.env.VITE_BACK}/api/models`, { headers });
       setModels(await modRes.json());
 
-      const menuRes = await fetch(`${process.env.BACK}/api/service-menu`, { headers });
+      const menuRes = await fetch(`${import.meta.env.VITE_BACK}/api/service-menu`, { headers });
       setServiceMenu(await menuRes.json());
 
     } catch (err) { 
@@ -106,7 +106,7 @@ const ServiceJobIn = () => {
     };
 
     try {
-      const res = await fetch(`${process.env.BACK}/api/save-service-job`, {
+      const res = await fetch(`${import.meta.env.VITE_BACK}/api/save-service-job`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ const ServiceJobIn = () => {
   const handleAddServiceItem = async () => {
     if (!newService.name || !newService.price) return toast.warn("Enter name and price");
     try {
-      const res = await fetch(`${process.env.BACK}/api/add-service-item`, {
+      const res = await fetch(`${import.meta.env.VITE_BACK}/api/add-service-item`, {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json',

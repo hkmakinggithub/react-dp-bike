@@ -13,7 +13,7 @@ const SalesHistory = () => {
     const fetchSales = async () => {
       try {
         // Make sure this matches your actual backend API route for getting sales!
-        const res = await fetch(`${process.env.BACK}/api/sales/list`, {
+        const res = await fetch(`${import.meta.env.VITE_BACK}/api/sales/list`, {
           headers: { 'branch-id': activeBranch }
         });
         const data = await res.json();
