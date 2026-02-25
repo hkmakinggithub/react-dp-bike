@@ -6,6 +6,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { LogIn, Mail, Lock, Bike, KeyRound, ArrowLeft, RefreshCw } from 'lucide-react';
 import 'react-toastify/dist/ReactToastify.css';
 
+// 🚨 THE FIX: Safe API URL Resolution
+// If Vite can't find the .env variable, it defaults to your local Node server port (5000 or 8080)
+const API_URL = import.meta.env.VITE_BACK || 'http://localhost:5000';
+
 const Login = () => {
   const [view, setView] = useState('login'); // 'login', 'forgot', 'reset'
   const [creds, setCreds] = useState({ email: '', password: '' });
@@ -27,26 +31,28 @@ const Login = () => {
   };
 
   // --- 1. LOGIN HANDLER ---
-const handleLogin = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACK}/api/login`, creds);
+      // 🚨 FIX: Using the safe API_URL variable
+      const response = await axios.post(`${API_URL}/api/login`, creds);
       
       // 1. Save the basic info
       localStorage.setItem('token', response.data.token); 
       localStorage.setItem('role', response.data.user.role);
       localStorage.setItem('activeBranch', response.data.user.branchId);
       
-      // 🚨 2. THIS IS THE MISSING LINE: You MUST save the permissions here!
+      // 2. Save the permissions 
       const userPerms = response.data.user.permissions || [];
       localStorage.setItem('permissions', JSON.stringify(userPerms));
       
       toast.success(`WELCOME ${response.data.user.role}`);
       navigate('/dashboard'); 
     } catch (error) {
-      toast.error("Login Failed");
+      toast.error(error.response?.data?.message || "Login Failed");
     }
   };
+
   // --- 2. FORGOT PASSWORD (SEND OTP) ---
   const handleForgotPassword = async (e) => {
     e.preventDefault();
@@ -54,7 +60,8 @@ const handleLogin = async (e) => {
     
     setIsLoading(true);
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BACK}/api/forgot-password`, { email: creds.email });
+      // 🚨 FIX: Using the safe API_URL variable
+      const res = await axios.post(`${API_URL}/api/forgot-password`, { email: creds.email });
       toast.success(res.data.message || "OTP Sent to your email!");
       setView('reset'); // Move to step 3
     } catch (error) {
@@ -71,7 +78,8 @@ const handleLogin = async (e) => {
 
     setIsLoading(true);
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BACK}/api/reset-password`, { 
+      // 🚨 FIX: Using the safe API_URL variable
+      const res = await axios.post(`${API_URL}/api/reset-password`, { 
         email: creds.email, 
         otp: otpData.otp, 
         newPassword: otpData.newPassword 
